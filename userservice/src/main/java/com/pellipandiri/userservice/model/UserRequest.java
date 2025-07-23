@@ -8,12 +8,23 @@ public class UserRequest {
 
     private Points points;
 
+    private String city;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public UserRequest() {
     }
 
-    public UserRequest(String functionName, Points points) {
+    public UserRequest(String functionName, Points points,String city) {
         this.functionName = functionName;
         this.points = points;
+        this.city = city;
     }
 
     public String getFunctionName() {
