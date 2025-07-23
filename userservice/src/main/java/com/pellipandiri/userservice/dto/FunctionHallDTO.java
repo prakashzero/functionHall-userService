@@ -1,0 +1,90 @@
+package com.pellipandiri.userservice.dto;
+
+import java.util.List;
+import java.util.Map;
+
+public class FunctionHallDTO {
+    private Long venueId;
+    private String functionHallsName;
+    private Long costperDay;
+    private String rating;
+    private String capacity;
+    private AddressDTO address;
+    private Map<String, String> imagesUrl;
+    private List<String> amenities;
+
+    private ContactDetailsDto  contactDetailsDto;
+
+    public ContactDetailsDto getContactDetailsDto() {
+        return contactDetailsDto;
+    }
+
+    public void setContactDetailsDto(ContactDetailsDto contactDetailsDto) {
+        this.contactDetailsDto = contactDetailsDto;
+    }
+
+    // Getters and Setters
+    public Long getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Long venueId) {
+        this.venueId = venueId;
+    }
+
+    public String getFunctionHallsName() {
+        return functionHallsName;
+    }
+
+    public void setFunctionHallsName(String functionHallsName) {
+        this.functionHallsName = functionHallsName;
+    }
+
+    public Long getCostperDay() {
+        return costperDay;
+    }
+
+    public void setCostperDay(Long costperDay) {
+        this.costperDay = costperDay;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    public Map<String, String> getImagesUrl() {
+        return imagesUrl;
+    }
+
+    public void setImagesUrl(Map<String, String> imagesUrl) {
+        this.imagesUrl = imagesUrl;
+    }
+
+    public List<String> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<String> amenities) {
+        this.amenities = amenities;
+    }
+}
