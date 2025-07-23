@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_HUB_REPOSITORY: your-dockerhub-username/functionhall-userservice
+  DOCKER_HUB_REPOSITORY: hercules2/functionhall-userservice
   IMAGE_TAG: latest
 
 jobs:
