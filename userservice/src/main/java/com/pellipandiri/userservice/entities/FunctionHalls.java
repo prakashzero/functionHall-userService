@@ -20,9 +20,9 @@ public class FunctionHalls {
     private Long costPerDay;
     
     @Column(name = "rating")
-    private String rating;
+    private Double rating;
     
-    @Lob
+
     @Column(name = "about", columnDefinition = "TEXT")
     private String about;
     
@@ -55,8 +55,8 @@ public class FunctionHalls {
     private String contactNumber;
 
     public FunctionHalls() {
-        this.costPerDay = 0L;
-        this.rating = "0.0";
+        this.costPerDay = (Long) 0L;
+        this.rating = (Double) 0.0;
     }
 
     public FunctionHalls(String functionHallsName, Address address, String contactNumber) {
@@ -124,11 +124,11 @@ public class FunctionHalls {
         this.costPerDay = costPerDay;
     }
     
-    public String getRating() {
+    public Double getRating() {
         return rating;
     }
     
-    public void setRating(String rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
     

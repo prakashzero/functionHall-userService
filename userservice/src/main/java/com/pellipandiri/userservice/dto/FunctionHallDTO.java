@@ -7,7 +7,7 @@ public class FunctionHallDTO {
     private Long venueId;
     private String functionHallsName;
     private Long costperDay;
-    private String rating;
+    private Double rating;
     private String capacity;
     private AddressDTO address;
     private Map<String, String> imagesUrl;
@@ -48,11 +48,11 @@ public class FunctionHallDTO {
         this.costperDay = costperDay;
     }
 
-    public String getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

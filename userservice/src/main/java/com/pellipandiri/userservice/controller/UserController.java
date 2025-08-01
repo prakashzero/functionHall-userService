@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,6 +31,7 @@ public class UserController {
         List<FunctionHalls> halls = userService.getFunctionHalls(userRequest);
         List<FunctionHallDTO> response = halls.stream()
                 .map(FunctionHallMapper::toDTO)
+                .sorted(Comparator.comparingDouble(FunctionHallDTO::getRating).reversed())
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
