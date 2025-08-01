@@ -56,29 +56,39 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            IMAGE=hercules2/functionhall-userservice
-            TAG=latest
+            # Set image details
+            IMAGE="hercules2/functionhall-userservice"
+            TAG="latest"
           
-            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+            # Login to Docker Hub
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           
-            docker stop userservice || true
-            docker rm userservice || true
-          
+            # Pull image (force pull latest)
             docker pull $IMAGE:$TAG
           
-            echo "Running container from image: $IMAGE:$TAG"
+            # Stop and remove any old container
+            docker stop functionhall-userservice || true
+            docker rm functionhall-userservice || true
           
+            # Export environment variables explicitly
+            export SPRING_DATASOURCE_URL="${{ secrets.SPRING_DATASOURCE_URL }}"
+            export SPRING_DATASOURCE_USERNAME="${{ secrets.SPRING_DATASOURCE_USERNAME }}"
+            export SPRING_DATASOURCE_PASSWORD="${{ secrets.SPRING_DATASOURCE_PASSWORD }}"
+            export SPRING_SECURITY_USER_NAME="${{ secrets.SPRING_SECURITY_USER_NAME }}"
+            export SPRING_SECURITY_USER_PASSWORD="${{ secrets.SPRING_SECURITY_USER_PASSWORD }}"
+          
+            # Run the new container
             docker run -d \
-              --name userservice \
+              --name functionhall-userservice \
               --restart always \
               -p 80:8080 \
-              -e SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} \
-              -e SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} \
-              -e SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }} \
-              -e SPRING_SECURITY_USER_NAME=${{ secrets.SPRING_SECURITY_USER_NAME }} \
-              -e SPRING_SECURITY_USER_PASSWORD=${{ secrets.SPRING_SECURITY_USER_PASSWORD }} \
+              -e SPRING_DATASOURCE_URL \
+              -e SPRING_DATASOURCE_USERNAME \
+              -e SPRING_DATASOURCE_PASSWORD \
+              -e SPRING_SECURITY_USER_NAME \
+              -e SPRING_SECURITY_USER_PASSWORD \
               -e SPRING_PROFILES_ACTIVE=prod \
               $IMAGE:$TAG
           
+            echo "✅ Container started successfully"
             docker system prune -f
-            echo "Deployment completed successfully!"
