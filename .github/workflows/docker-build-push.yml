@@ -56,20 +56,18 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Login to Docker Hub
+            IMAGE=hercules2/functionhall-userservice
+            TAG=latest
+          
             echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-      
-            # Stop and remove existing container
+          
             docker stop userservice || true
             docker rm userservice || true
-      
-            # Pull latest image
-            docker pull ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
-      
-            # Echo to debug image value
-            echo "Running container from image: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}"
-      
-            # Run container
+          
+            docker pull $IMAGE:$TAG
+          
+            echo "Running container from image: $IMAGE:$TAG"
+          
             docker run -d \
               --name userservice \
               --restart always \
@@ -80,7 +78,7 @@ jobs:
               -e SPRING_SECURITY_USER_NAME=${{ secrets.SPRING_SECURITY_USER_NAME }} \
               -e SPRING_SECURITY_USER_PASSWORD=${{ secrets.SPRING_SECURITY_USER_PASSWORD }} \
               -e SPRING_PROFILES_ACTIVE=prod \
-              hercules2/functionhall-userservice:latest
-      
+              $IMAGE:$TAG
+          
             docker system prune -f
             echo "Deployment completed successfully!"
