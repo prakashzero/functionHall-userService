@@ -36,4 +36,18 @@ public class ExceptionHandling {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(BookingException.class)
+    public ResponseEntity<ErrorResponse> bookingStatusConflictException(BookingException bookingException){
+        ErrorResponse errorResponse = new ErrorResponse(bookingException.getMessage(),
+                LocalDateTime.now(),HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(OwnerException.class)
+    public ResponseEntity<ErrorResponse> ownerException(OwnerException ownerException){
+        ErrorResponse errorResponse = new ErrorResponse(ownerException.getMessage(),
+                LocalDateTime.now(),HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

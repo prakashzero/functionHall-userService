@@ -2,8 +2,11 @@ package com.pellipandiri.userservice.entities;
 
 import jakarta.persistence.*;
 
+
 @Entity
 public class Address {
+
+
 
     @Id
     private String id;
@@ -57,5 +60,12 @@ public class Address {
 
     public void setFunctionHalls(FunctionHalls functionHalls) {
         this.functionHalls = functionHalls;
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

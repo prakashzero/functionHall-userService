@@ -53,6 +53,19 @@ public class FunctionHalls {
     private Set<Eminities> amenities = new HashSet<>();
 
     private String contactNumber;
+    
+    @Column(name = "gst_number")
+    private String gstNumber;
+    
+    @Column(name = "is_booked")
+    private Boolean isBooked = false;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+    
+    @OneToMany(mappedBy = "functionHall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Booking> bookings = new ArrayList<>();
 
     public FunctionHalls() {
         this.costPerDay = (Long) 0L;
@@ -174,5 +187,48 @@ public class FunctionHalls {
         if (contactDetails != null) {
             contactDetails.setFunctionHall(this);
         }
+    }
+    
+    public String getGstNumber() {
+        return gstNumber;
+    }
+    
+    public void setGstNumber(String gstNumber) {
+        this.gstNumber = gstNumber;
+    }
+    
+    public Boolean getIsBooked() {
+        return isBooked;
+    }
+    
+    public void setIsBooked(Boolean isBooked) {
+        this.isBooked = isBooked;
+    }
+    
+    public Owner getOwner() {
+        return owner;
+    }
+    
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+    
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+    
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+    
+    // Convenience methods for bookings
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
+        booking.setFunctionHall(this);
+    }
+    
+    public void removeBooking(Booking booking) {
+        this.bookings.remove(booking);
+        booking.setFunctionHall(null);
     }
 }

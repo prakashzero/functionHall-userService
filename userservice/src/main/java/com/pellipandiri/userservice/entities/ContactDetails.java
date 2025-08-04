@@ -9,13 +9,13 @@ public class ContactDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     private String name;
     
-    @Column(name = "name_of_owner", nullable = false)
+    @Column(name = "name_of_owner", nullable = true)
     private String nameOfOwner;
     
-    @Column(name = "contact_no", nullable = false)
+    @Column(name = "contact_no", nullable = true)
     private String contactNo;
     
     @Column(name = "landline_no")

@@ -4,7 +4,7 @@ public class ContactDetailsDto {
 
     private String name;
     private String nameOfOwner;
-    private String landlineNo;
+    private String contactNo;
     private String email;
 
     public String getName() {
@@ -23,12 +23,12 @@ public class ContactDetailsDto {
         this.nameOfOwner = nameOfOwner;
     }
 
-    public String getLandlineNo() {
-        return landlineNo;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setLandlineNo(String landlineNo) {
-        this.landlineNo = landlineNo;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     public String getEmail() {
@@ -39,10 +39,10 @@ public class ContactDetailsDto {
         this.email = email;
     }
 
-    public ContactDetailsDto(String name, String nameOfOwner, String landlineNo, String email) {
+    public ContactDetailsDto(String name, String nameOfOwner, String contactNo, String email) {
         this.name = name;
         this.nameOfOwner = nameOfOwner;
-        this.landlineNo = landlineNo;
+        this.contactNo = contactNo;
         this.email = email;
     }
 }

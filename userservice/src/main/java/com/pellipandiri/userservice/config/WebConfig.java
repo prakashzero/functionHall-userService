@@ -4,6 +4,9 @@ import org.apache.tomcat.util.http.fileupload.util.LimitedInputStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -14,6 +17,8 @@ import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+
 
     @Value("#{'${ui.endpoint}'.split(',')}")
     private List<String> endpoints;
@@ -48,8 +53,8 @@ public class WebConfig implements WebMvcConfigurer {
         
         return new CorsFilter(source);
     }
-    
-//     If you need to configure CORS for specific endpoints, you can use this method
+
+
      @Override
      public void addCorsMappings(CorsRegistry registry) {
          registry.addMapping("/api/**")
@@ -57,5 +62,20 @@ public class WebConfig implements WebMvcConfigurer {
              .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
              .allowedHeaders("*")
              .allowCredentials(true);
+     }
+
+     @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+            http.cors()
+                    .and()
+                    .csrf(csrf->csrf.disable())
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                            .requestMatchers("/api/**").authenticated()
+                            .anyRequest().permitAll()
+                    ).httpBasic();
+
+            return http.build();
      }
 }
