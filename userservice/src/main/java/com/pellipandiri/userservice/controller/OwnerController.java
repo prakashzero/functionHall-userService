@@ -5,15 +5,16 @@ import com.pellipandiri.userservice.dto.FunctionHallCreateDTO;
 import com.pellipandiri.userservice.dto.FunctionHallDTO;
 import com.pellipandiri.userservice.dto.OwnerDTO;
 import com.pellipandiri.userservice.entities.Booking;
-import com.pellipandiri.userservice.entities.FunctionHalls;
 import com.pellipandiri.userservice.entities.Owner;
 import com.pellipandiri.userservice.ExceptionHandler.BookingException;
 import com.pellipandiri.userservice.ExceptionHandler.OwnerException;
+import com.pellipandiri.userservice.service.ImageService;
 import com.pellipandiri.userservice.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class OwnerController {
 
     @Autowired
     private OwnerService ownerService;
+
+    @Autowired
+    private ImageService imageService;
 
     // Owner Management Endpoints
     
@@ -39,9 +43,9 @@ public class OwnerController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Owner> getOwnerById(@PathVariable Long id) {
+    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id) {
         try {
-            Owner owner = ownerService.getOwnerById(id);
+            OwnerDTO owner = ownerService.getOwnerByIdWithDTO(id);
             return ResponseEntity.ok(owner);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -49,9 +53,9 @@ public class OwnerController {
     }
     
     @GetMapping("/email/{email}")
-    public ResponseEntity<Owner> getOwnerByEmail(@PathVariable String email) {
+    public ResponseEntity<OwnerDTO> getOwnerByEmail(@PathVariable String email) {
         try {
-            Owner owner = ownerService.getOwnerByEmail(email);
+            OwnerDTO owner = ownerService.getOwnerByEmail(email);
             return ResponseEntity.ok(owner);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -135,5 +139,29 @@ public class OwnerController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+    }
+
+
+    @PostMapping("/functionHall/addImage")
+    public ResponseEntity<String> addImageForFunctionHall(
+            @RequestParam("functionHallId") Long functionHallId,
+            @RequestParam("file") MultipartFile file) {
+
+        try {
+            String fileUrl = imageService.addImageToFunctionHall(functionHallId,file);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(fileUrl);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error Uploading file:" +e.getMessage());
+        }
+
+    }
+
+    @GetMapping("/functionHall/Images")
+    public ResponseEntity<List<String>> getImages(@RequestParam Long functionHallId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(imageService.getImagesForFunctionHall(functionHallId));
+
     }
 }

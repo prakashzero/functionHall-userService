@@ -8,8 +8,10 @@ import com.pellipandiri.userservice.entities.*;
 import com.pellipandiri.userservice.ExceptionHandler.BookingException;
 import com.pellipandiri.userservice.ExceptionHandler.OwnerException;
 import com.pellipandiri.userservice.mapper.FunctionHallMapper;
+import com.pellipandiri.userservice.mapper.OwnerMapper;
 import com.pellipandiri.userservice.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import com.pellipandiri.userservice.mapper.BookingMapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import static com.pellipandiri.userservice.mapper.FunctionHallMapper.toDTO;
 
@@ -68,10 +71,15 @@ public class OwnerService {
         return ownerRepository.findById(id)
                 .orElseThrow(() -> new OwnerException("Owner not found with id: " + id));
     }
+
+    public OwnerDTO getOwnerByIdWithDTO(Long id) {
+        return OwnerMapper.toDTO(ownerRepository.findById(id)
+                .orElseThrow(() -> new OwnerException("Owner not found with id: " + id)));
+    }
     
-    public Owner getOwnerByEmail(String email) {
-        return ownerRepository.findByEmail(email)
-                .orElseThrow(() -> new OwnerException("Owner not found with email: " + email));
+    public OwnerDTO getOwnerByEmail(String email) {
+        return OwnerMapper.toDTO(ownerRepository.findByEmail(email)
+                .orElseThrow(() -> new OwnerException("Owner not found with email: " + email)));
     }
     
     // Function Hall operations
@@ -220,4 +228,6 @@ public class OwnerService {
         
         return BookingMapper.toDTO(bookingRepository.save(booking));
     }
-} 
+
+
+}

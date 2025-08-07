@@ -18,6 +18,7 @@ public class OwnerMapper {
         dto.setGstNumber(owner.getGstNumber());
         dto.setPanNumber(owner.getPanNumber());
         dto.setBusinessName(owner.getBusinessName());
+        dto.setFunctionHallDTOList(owner.getFunctionHalls().stream().map(FunctionHallMapper::toDTO).toList());
         
         return dto;
     }
