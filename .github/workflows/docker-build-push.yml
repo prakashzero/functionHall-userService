@@ -76,6 +76,10 @@ jobs:
             export SPRING_DATASOURCE_PASSWORD="${{ secrets.SPRING_DATASOURCE_PASSWORD }}"
             export SPRING_SECURITY_USER_NAME="${{ secrets.SPRING_SECURITY_USER_NAME }}"
             export SPRING_SECURITY_USER_PASSWORD="${{ secrets.SPRING_SECURITY_USER_PASSWORD }}"
+            export S3_ACCESS_KEY="${{ secrets.S3_ACCESS_KEY }}"
+            export S3_SECRET_KEY="${{ secrets.S3_SECRET_KEY }}"
+            export S3_REGION="{{ secrets.S3_REGION }}"
+            export S3_BUCKET_NAME="{{ secrets.S3_BUCKET_NAME }}"
           
             # Run the new container
             docker run -d \
@@ -87,6 +91,10 @@ jobs:
               -e SPRING_DATASOURCE_PASSWORD \
               -e SPRING_SECURITY_USER_NAME \
               -e SPRING_SECURITY_USER_PASSWORD \
+              -e S3_ACCESS_KEY \
+              -e S3_SECRET_KET \
+              -e S3_REGION \
+              -e S3_BUCKET_NAME \
               -e SPRING_PROFILES_ACTIVE=prod \
               $IMAGE:$TAG
           
