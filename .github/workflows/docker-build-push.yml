@@ -85,7 +85,7 @@ jobs:
             docker run -d \
               --name functionhall-userservice \
               --restart always \
-              -p 80:8080 \
+              -p 8080:8080 \
               -e SPRING_DATASOURCE_URL \
               -e SPRING_DATASOURCE_USERNAME \
               -e SPRING_DATASOURCE_PASSWORD \
