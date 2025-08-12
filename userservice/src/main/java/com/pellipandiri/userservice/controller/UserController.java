@@ -27,10 +27,13 @@ public class UserController {
     }
 
     @GetMapping("/functionHalls")
-    public ResponseEntity<List<FunctionHallDTO>> getFunctionHalls(@RequestBody UserRequest userRequest) throws UserRequestException, FunctionNameNotFound {
-        List<FunctionHalls> halls = userService.getFunctionHalls(userRequest);
+    public ResponseEntity<List<FunctionHallDTO>> getFunctionHalls(
+            @RequestParam(value = "city",required = false) String city,
+            @RequestParam(value = "functionHall",required = false) String functionHall,
+            @RequestParam(value = "location",required = false) String location)
+            throws UserRequestException, FunctionNameNotFound {
+        List<FunctionHallDTO> halls = userService.getFunctionHalls(city,functionHall,location);
         List<FunctionHallDTO> response = halls.stream()
-                .map(FunctionHallMapper::toDTO)
                 .sorted(Comparator.comparingDouble(FunctionHallDTO::getRating).reversed())
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);

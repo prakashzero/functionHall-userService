@@ -43,7 +43,7 @@ public class OwnerController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id) {
+    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable String id) {
         try {
             OwnerDTO owner = ownerService.getOwnerByIdWithDTO(id);
             return ResponseEntity.ok(owner);
@@ -75,7 +75,7 @@ public class OwnerController {
     }
     
     @GetMapping("/function-halls/{ownerId}")
-    public ResponseEntity<List<FunctionHallDTO>> getFunctionHallsByOwner(@PathVariable Long ownerId) {
+    public ResponseEntity<List<FunctionHallDTO>> getFunctionHallsByOwner(@PathVariable String ownerId) {
         try {
             List<FunctionHallDTO> functionHalls = ownerService.getFunctionHallsByOwner(ownerId);
             return ResponseEntity.ok(functionHalls);

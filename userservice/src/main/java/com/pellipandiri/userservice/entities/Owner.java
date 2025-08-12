@@ -9,9 +9,8 @@ import java.util.List;
 public class Owner {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private String id;
+
     @Column(name = "owner_name", nullable = false)
     private String ownerName;
     
@@ -36,7 +35,8 @@ public class Owner {
     // Constructors
     public Owner() {}
     
-    public Owner(String ownerName, String email, String phoneNumber, String gstNumber, String panNumber) {
+    public Owner(String id,String ownerName, String email, String phoneNumber, String gstNumber, String panNumber) {
+        this.id=id;
         this.ownerName = ownerName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -45,11 +45,11 @@ public class Owner {
     }
     
     // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
     
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     

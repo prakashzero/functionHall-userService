@@ -3,7 +3,7 @@ package com.pellipandiri.userservice.dto;
 import java.util.List;
 
 public class OwnerDTO {
-    private Long id;
+    private String id;
     private String ownerName;
     private String email;
     private String phoneNumber;
@@ -28,11 +28,11 @@ public class OwnerDTO {
     }
     
     // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
     
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     

@@ -57,6 +57,7 @@ public class OwnerService {
         }
         
         Owner owner = new Owner();
+        owner.setId(ownerDTO.getId());
         owner.setOwnerName(ownerDTO.getOwnerName());
         owner.setEmail(ownerDTO.getEmail());
         owner.setPhoneNumber(ownerDTO.getPhoneNumber());
@@ -67,12 +68,12 @@ public class OwnerService {
         return ownerRepository.save(owner);
     }
     
-    public Owner getOwnerById(Long id) {
+    public Owner getOwnerById(String id) {
         return ownerRepository.findById(id)
                 .orElseThrow(() -> new OwnerException("Owner not found with id: " + id));
     }
 
-    public OwnerDTO getOwnerByIdWithDTO(Long id) {
+    public OwnerDTO getOwnerByIdWithDTO(String id) {
         return OwnerMapper.toDTO(ownerRepository.findById(id)
                 .orElseThrow(() -> new OwnerException("Owner not found with id: " + id)));
     }
@@ -95,7 +96,7 @@ public class OwnerService {
         
         // Create function hall
         FunctionHalls functionHall = new FunctionHalls();
-        functionHall.setFunctionHallsName(createDTO.getFunctionHallsName());
+        functionHall.setFunctionHallsName(createDTO.getFunctionHallsName().toLowerCase());
         functionHall.setCostPerDay(createDTO.getCostPerDay());
         functionHall.setCapacity(createDTO.getCapacity());
         functionHall.setAbout(createDTO.getAbout());
@@ -108,7 +109,7 @@ public class OwnerService {
             Address address = new Address();
             address.setId(UUID.randomUUID().toString());
             address.setStreetName(createDTO.getAddress().getAreaName());
-            address.setCity(createDTO.getAddress().getCity());
+            address.setCity(createDTO.getAddress().getCity().toLowerCase());
             address.setPinCode(createDTO.getAddress().getPincode());
             address.setFunctionHalls(functionHall);
             functionHall.setAddress(address);
@@ -145,7 +146,7 @@ public class OwnerService {
         return toDTO(savedFunctionHall);
     }
     
-    public List<FunctionHallDTO> getFunctionHallsByOwner(Long ownerId) {
+    public List<FunctionHallDTO> getFunctionHallsByOwner(String ownerId) {
         Owner owner = getOwnerById(ownerId);
         return functionHallsRepository.findByOwner(owner).stream().map(FunctionHallMapper::toDTO).toList();
     }
