@@ -24,6 +24,7 @@ public class FunctionHallMapper {
         dto.setCostperDay(functionHall.getCostPerDay());
         dto.setRating(functionHall.getRating());
         dto.setCapacity(functionHall.getCapacity());
+        dto.setAbout(functionHall.getAbout());
         
         // Map address
         if (functionHall.getAddress() != null) {
@@ -56,7 +57,7 @@ public class FunctionHallMapper {
             dto.setContactDetailsDto(new ContactDetailsDto(
                     functionHall.getContactDetails().getName(),
                     functionHall.getContactDetails().getNameOfOwner(),
-                    functionHall.getContactDetails().getLandlineNo(),
+                    functionHall.getContactDetails().getContactNo(),
                     functionHall.getContactDetails().getEmail()
             ));
         }

@@ -12,7 +12,7 @@ public class FunctionHallDTO {
     private AddressDTO address;
     private List<String> imagesUrl;
     private List<String> amenities;
-
+    private String about;
     private ContactDetailsDto  contactDetailsDto;
 
     public ContactDetailsDto getContactDetailsDto() {
@@ -86,5 +86,13 @@ public class FunctionHallDTO {
 
     public void setAmenities(List<String> amenities) {
         this.amenities = amenities;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }
