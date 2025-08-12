@@ -36,12 +36,10 @@ public class FunctionHallMapper {
         
         // Map images to s3Url1, s3Url2, etc.
         if (functionHall.getImages() != null) {
-            Map<String, String> imagesMap = IntStream.range(0, functionHall.getImages().size())
+            List<String> imagesMap = IntStream.range(0, functionHall.getImages().size())
                 .boxed()
-                .collect(Collectors.toMap(
-                    i -> "s3Url" + (i + 1),
-                    i -> functionHall.getImages().get(i).getImagePath()
-                ));
+                    .map(i->functionHall.getImages().get(i).getImagePath())
+                .collect(Collectors.toList());
             dto.setImagesUrl(imagesMap);
         }
         

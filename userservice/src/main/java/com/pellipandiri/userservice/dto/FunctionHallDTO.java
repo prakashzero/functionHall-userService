@@ -10,7 +10,7 @@ public class FunctionHallDTO {
     private Double rating;
     private String capacity;
     private AddressDTO address;
-    private Map<String, String> imagesUrl;
+    private List<String> imagesUrl;
     private List<String> amenities;
 
     private ContactDetailsDto  contactDetailsDto;
@@ -72,11 +72,11 @@ public class FunctionHallDTO {
         this.address = address;
     }
 
-    public Map<String, String> getImagesUrl() {
+    public List<String> getImagesUrl() {
         return imagesUrl;
     }
 
-    public void setImagesUrl(Map<String, String> imagesUrl) {
+    public void setImagesUrl(List<String> imagesUrl) {
         this.imagesUrl = imagesUrl;
     }
 
