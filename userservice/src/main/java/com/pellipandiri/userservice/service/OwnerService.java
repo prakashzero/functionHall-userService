@@ -49,12 +49,6 @@ public class OwnerService {
         if (ownerRepository.existsByEmail(ownerDTO.getEmail())) {
             throw new OwnerException("Owner with this email already exists");
         }
-        if (ownerRepository.existsByGstNumber(ownerDTO.getGstNumber())) {
-            throw new OwnerException("Owner with this GST number already exists");
-        }
-        if (ownerRepository.existsByPanNumber(ownerDTO.getPanNumber())) {
-            throw new OwnerException("Owner with this PAN number already exists");
-        }
         
         Owner owner = new Owner();
         owner.setId(ownerDTO.getId());
