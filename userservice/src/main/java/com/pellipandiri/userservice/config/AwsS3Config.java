@@ -9,7 +9,7 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-
+import software.amazon.awssdk.services.s3.S3Configuration;
 
 
 @Configuration
@@ -29,11 +29,13 @@ public class AwsS3Config {
         AwsBasicCredentials awsBasicCredentials = AwsBasicCredentials.create(
                 s3Configurations.getAccesskey(),
                 s3Configurations.getSecretkey());
-
         return S3Client.builder()
-                .region(Region.of(s3Configurations.getRegion()))
-                .credentialsProvider(StaticCredentialsProvider.create(awsBasicCredentials))
+                .region(Region.AP_SOUTH_1)
+                .serviceConfiguration(S3Configuration.builder()
+                        .pathStyleAccessEnabled(true) // fixes dotted-bucket names
+                        .build())
                 .build();
+
 
 
     }
