@@ -15,6 +15,8 @@ public class FunctionHallDTO {
     private String about;
     private ContactDetailsDto  contactDetailsDto;
 
+    private List<BookingDTO> bookingDto;
+
     public ContactDetailsDto getContactDetailsDto() {
         return contactDetailsDto;
     }
@@ -94,5 +96,13 @@ public class FunctionHallDTO {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public List<BookingDTO> getBookingDto() {
+        return bookingDto;
+    }
+
+    public void setBookingDto(List<BookingDTO> bookingDto) {
+        this.bookingDto = bookingDto;
     }
 }

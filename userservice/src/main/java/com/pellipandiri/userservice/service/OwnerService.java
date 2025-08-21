@@ -223,6 +223,4 @@ public class OwnerService {
         
         return BookingMapper.toDTO(bookingRepository.save(booking));
     }
-
-
 }

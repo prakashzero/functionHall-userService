@@ -93,6 +93,8 @@ public class OwnerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+
     
     // Booking Management Endpoints
     
@@ -127,6 +129,7 @@ public class OwnerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
     
     @PutMapping("/booking/{bookingId}/status")
     public ResponseEntity<BookingDTO> updateBookingStatus(
@@ -164,4 +167,5 @@ public class OwnerController {
         return ResponseEntity.status(HttpStatus.OK).body(imageService.getImagesForFunctionHall(functionHallId));
 
     }
+
 }

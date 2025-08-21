@@ -61,8 +61,15 @@ public class FunctionHallMapper {
                     functionHall.getContactDetails().getEmail()
             ));
         }
+
+        if(!functionHall.getBookings().isEmpty()){
+            dto.setBookingDto(functionHall.getBookings().stream().map(BookingMapper::toDTO).toList());
+        }
         
         return dto;
     }
+
+
+
 
 }
