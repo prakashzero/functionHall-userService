@@ -6,7 +6,7 @@ import java.util.Map;
 public class FunctionHallDTO {
     private Long venueId;
     private String functionHallsName;
-    private Long costperDay;
+    private Long costPerDay;
     private Double rating;
     private String capacity;
     private AddressDTO address;
@@ -43,11 +43,11 @@ public class FunctionHallDTO {
     }
 
     public Long getCostperDay() {
-        return costperDay;
+        return costPerDay;
     }
 
     public void setCostperDay(Long costperDay) {
-        this.costperDay = costperDay;
+        this.costPerDay = costperDay;
     }
 
     public Double getRating() {

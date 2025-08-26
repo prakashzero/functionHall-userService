@@ -1,5 +1,7 @@
 package com.pellipandiri.userservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 import java.util.List;
 import java.util.Map;
 

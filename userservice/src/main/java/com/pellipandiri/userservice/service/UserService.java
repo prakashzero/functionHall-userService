@@ -33,7 +33,7 @@ public class UserService {
     public List<FunctionHallDTO> getFunctionHalls(String city, String functionHall, String location) throws UserRequestException,FunctionNameNotFound {
         if(city!=null){
             return addressRepository
-                    .findAllByCity(city.toLowerCase()).
+                    .findAllByCityContains(city.toLowerCase()).
                     stream().map(Address::getFunctionHalls).map(FunctionHallMapper::toDTO).collect(Collectors.toList());
         }
         else if(functionHall != null){

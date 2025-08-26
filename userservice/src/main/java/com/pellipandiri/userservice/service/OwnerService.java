@@ -87,9 +87,26 @@ public class OwnerService {
         } else {
             owner = createOwner(createDTO.getOwner());
         }
+
+
         
         // Create function hall
-        FunctionHalls functionHall = new FunctionHalls();
+        FunctionHalls functionHall;
+//        functionHallsRepository.findById(createDTO.getVenueId()).orElse(new FunctionHalls()) ;
+        if (createDTO.getVenueId() != null) {
+            // -------- UPDATE --------
+            functionHall = functionHallsRepository.findById(createDTO.getVenueId())
+                    .orElseThrow(() -> new RuntimeException("Function hall with id " + createDTO.getVenueId() + " not found"));
+        } else {
+            // -------- CREATE --------
+            functionHall = new FunctionHalls();
+
+            Address address = new Address();
+            address.setId(UUID.randomUUID().toString());
+            functionHall.setAddress(address);
+
+            functionHall.setContactDetails(new ContactDetails());
+        }
         functionHall.setFunctionHallsName(createDTO.getFunctionHallsName().toLowerCase());
         functionHall.setCostPerDay(createDTO.getCostPerDay());
         functionHall.setCapacity(createDTO.getCapacity());
@@ -97,12 +114,11 @@ public class OwnerService {
         functionHall.setGstNumber(createDTO.getGstNumber());
         functionHall.setIsBooked(false);
         functionHall.setOwner(owner);
-        functionHall.setVenueId(createDTO.getVenueId());
+
         
         // Set address
         if (createDTO.getAddress() != null) {
-            Address address = new Address();
-            address.setId(UUID.randomUUID().toString());
+            Address address = functionHall.getAddress();
             address.setStreetName(createDTO.getAddress().getAreaName());
             address.setCity(createDTO.getAddress().getCity().toLowerCase());
             address.setPinCode(createDTO.getAddress().getPincode());
@@ -112,7 +128,7 @@ public class OwnerService {
         
         // Set contact details
         if (createDTO.getContactDetailsDto() != null) {
-            ContactDetails contactDetails = new ContactDetails();
+            ContactDetails contactDetails = functionHall.getContactDetails();
             contactDetails.setName(createDTO.getFunctionHallsName());
             contactDetails.setNameOfOwner(createDTO.getContactDetailsDto().getNameOfOwner());
             contactDetails.setEmail(createDTO.getContactDetailsDto().getEmail());
@@ -130,6 +146,7 @@ public class OwnerService {
                             newAmenity.setName(amenityName);
                             return eminitiesRepository.save(newAmenity);
                         });
+
                 functionHall.addAmenity(amenity);
             }
         }
