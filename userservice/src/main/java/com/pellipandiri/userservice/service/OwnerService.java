@@ -97,6 +97,7 @@ public class OwnerService {
         functionHall.setGstNumber(createDTO.getGstNumber());
         functionHall.setIsBooked(false);
         functionHall.setOwner(owner);
+        functionHall.setVenueId(createDTO.getVenueId());
         
         // Set address
         if (createDTO.getAddress() != null) {

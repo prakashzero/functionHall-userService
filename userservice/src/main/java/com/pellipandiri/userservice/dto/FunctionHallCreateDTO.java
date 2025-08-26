@@ -14,6 +14,7 @@ public class FunctionHallCreateDTO {
     private ContactDetailsDto contactDetailsDto;
     private String gstNumber;
     private OwnerDTO owner;
+    private Long venueId;
     
     // Constructors
     public FunctionHallCreateDTO() {}
@@ -21,6 +22,14 @@ public class FunctionHallCreateDTO {
     // Getters and Setters
     public String getFunctionHallsName() {
         return functionHallsName;
+    }
+
+    public Long getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(Long venueId) {
+        this.venueId = venueId;
     }
     
     public void setFunctionHallsName(String functionHallsName) {
