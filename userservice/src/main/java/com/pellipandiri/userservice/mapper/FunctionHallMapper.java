@@ -20,7 +20,7 @@ public class FunctionHallMapper {
 
         FunctionHallDTO dto = new FunctionHallDTO();
         dto.setVenueId(functionHall.getId());
-        dto.setFunctionHallsName(functionHall.getFunctionHallsName());
+        dto.setFunctionHallsName(functionHall.getFunctionHallsName().toUpperCase());
         dto.setCostperDay(functionHall.getCostPerDay());
         dto.setRating(functionHall.getRating());
         dto.setCapacity(functionHall.getCapacity());
